@@ -23,15 +23,16 @@ git clone https://github.com/your-username/cavenv.git
 cd cavenv
 ```
 
-### 2. Source script in ~/.bashrc
+### 2. Install cavnenv
 
 ```bash
-echo -e "# cavenv\nif [ -f path/to/cavenv.sh ]; then\n\tsource path/to/cavenv.sh\nfi\n" >> "$HOME/.bashrc"
+chmod +x install.sh
+./install.sh
 ```
 
 This will:
 
-- Copy `cavenv.sh` to `$HOME/.local/bin`
+- Install `cavenv.sh` to `$HOME/.local/bin`
 - Make the script executable
 - Source it to bashrc (if it is not already there)
 
