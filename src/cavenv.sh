@@ -4,7 +4,7 @@
 DEFAULT_VENV="./.venv"
 
 # Version of the cavenv script
-CAVENV_VERSION="0.0.1"
+CAVENV_VERSION="0.0.2"
 
 # Function to display usage information
 usage() {
@@ -15,6 +15,7 @@ usage() {
     echo "  -h, --help        Show this help message"
     echo "  -v, --version     Show version"
     echo "  -f, --force       Force creation even if directory exists"
+    echo "  -n, --no-install  Do not install python dependencies from requirements.txt file"
     echo "  [DIRECTORY]       Directory to create the virtual environment (defaults to $DEFAULT_VENV)"
 }
 
@@ -65,9 +66,21 @@ create_and_activate_venv() {
     fi
 }
 
+install_requirements() {
+    if [ -f "./requirements.txt" ] && [ -z "$INSTALL_DEPENDENCIES" ]; then
+        echo "requirements file 'requiremnts.txt' found in current directory."
+        echo "Installing requirements use flag '-n|--no-dependencie' to disable automatic requirements installation."
+        pip install -r requirements.txt
+    else
+        return 0
+    fi
+
+}
+
 cavenv() {
     # Parse options
     FORCE=""
+    INSTALL_DEPENDENCIES=""
     while [[ "$1" =~ ^- ]]; do
         case "$1" in
             -h|--help)
@@ -80,6 +93,10 @@ cavenv() {
                 ;;
             -f|--force)
                 FORCE="true"  # Set FORCE to allow overwriting
+                shift
+                ;;
+            -n|--no-install)
+                INSTALL_DEPENDENCIES="false" # Set INSTALL_DEPENDENCIES to false to not install dependencies
                 shift
                 ;;
             *)
@@ -96,5 +113,6 @@ cavenv() {
     # Run the function
     check_python
     create_and_activate_venv "$venv_dir"
+    install_requirements
 }
 

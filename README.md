@@ -6,6 +6,7 @@ It allows you to specify the location of the virtual environment or defaults to 
 ## Features
 
 - Create and activate Python virtual environments.
+- Install dependencies if a requirements.txt file is present.
 - Support for custom directory paths for virtual environments.
 - Easy installation and usage.
 - Minimal dependencies (only Python is required).
@@ -75,6 +76,9 @@ cavenv /path/to/venv
 ```bash
 # Create and activate the default virtual environment
 cavenv
+
+# Create and activate the virtual environment without installing dependencies
+cavenv -n
 
 # Create and activate a virtual environment called "myvenv" in the current directory
 cavenv myvenv
